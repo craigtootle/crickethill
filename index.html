@@ -694,9 +694,9 @@
 
     <!-- Success Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 z-50 bg-equine-900 text-white px-6 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 border border-brandGold/40">
-        <i class="fa-solid fa-circle-check text-brandGold text-xl"></i>
+        <i id="toast-icon" class="fa-solid fa-circle-check text-brandGold text-xl"></i>
         <div>
-            <div class="font-bold text-sm">Success!</div>
+            <div id="toast-title" class="font-bold text-sm">Success!</div>
             <div id="toast-message" class="text-xs text-stone-300">Your request has been received.</div>
         </div>
     </div>
@@ -841,14 +841,20 @@
             modal.classList.add('hidden');
         }
 
-        function showToast(message) {
+        let toastTimer;
+        function showToast(message, isError = false) {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-message');
+            document.getElementById('toast-title').textContent = isError ? 'Message not sent' : 'Success!';
+            document.getElementById('toast-icon').className = isError
+                ? 'fa-solid fa-circle-exclamation text-brandPink text-xl'
+                : 'fa-solid fa-circle-check text-brandGold text-xl';
             toastMsg.textContent = message;
             toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
-            }, 4000);
+            }, isError ? 10000 : 4000);
         }
 
         async function handleContactSubmit(event) {
@@ -879,7 +885,8 @@
                 showToast("Your message has been sent successfully!");
                 form.reset();
             } catch (err) {
-                showToast("Sorry, your message could not be sent. Please call us at (770) 312-9523.");
+                console.error('Contact form send failed:', err);
+                showToast(`Could not send (${err.message}). Please call us at (770) 312-9523.`, true);
             } finally {
                 btn.disabled = false;
             }
@@ -914,7 +921,8 @@
                 showToast("Request received! We will contact you to confirm.");
                 form.reset();
             } catch (err) {
-                showToast("Sorry, your request could not be sent. Please call us at (770) 312-9523.");
+                console.error('Appointment request send failed:', err);
+                showToast(`Could not send (${err.message}). Please call us at (770) 312-9523.`, true);
             } finally {
                 btn.disabled = false;
             }
