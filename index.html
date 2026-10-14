@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Hill Farm | Premier Equestrian Training, Boarding & Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        equine: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            600: '#243b53',
+                            800: '#102a43',
+                            900: '#0b192c', // Navy Blue theme
+                        },
+                        brandGold: '#c5a880',
+                        brandGoldHover: '#b3956c',
+                        brandSand: '#faf8f5',
+                        brandPink: '#f472b6', // Pink accent for text on banners
+                        brandPinkLight: '#fbcfe8',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+        /* Logo as banner background; light navy tint keeps overlaid text readable */
+        .logo-banner {
+            background-color: #0b192c;
+            background-image: linear-gradient(rgba(11, 25, 44, 0.55), rgba(11, 25, 44, 0.55)), url('chf logo.webp');
+            background-size: 100% 100%, contain; /* tint fills banner; logo shown whole, never cropped */
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 42rem; /* same height on every view => same logo size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-banner > div { width: 100%; }
+    </style>
+</head>
+<body class="bg-brandSand text-stone-800 antialiased flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-50 bg-equine-900/95 backdrop-blur-md text-white border-b border-equine-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchPage('home')">
+                    <img src="chf logo.webp" alt="Cricket Hill Farm Logo" class="w-12 h-12 rounded-full object-cover border-2 border-brandPink shadow-md" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-10 h-10 rounded-full bg-brandPink flex items-center justify-center text-equine-900 font-serif font-bold text-xl shadow\'>CHF</div>';">
+                    <div>
+                        <span class="text-xl sm:text-2xl font-serif font-bold tracking-wider text-white">Cricket Hill</span>
+                        <span class="block text-xs uppercase tracking-widest text-brandPink font-semibold">Equestrian Center</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <button onclick="switchPage('home')" id="nav-home" class="nav-btn text-brandGold font-medium transition hover:text-brandGold py-2 border-b-2 border-brandGold">Home</button>
+                    <button onclick="switchPage('lessons')" id="nav-lessons" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Lessons & Training</button>
+                    <button onclick="switchPage('boarding')" id="nav-boarding" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Boarding & Facility</button>
+                    <button onclick="switchPage('sales')" id="nav-sales" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Horses for Sale</button>
+                    <button onclick="switchPage('contact')" id="nav-contact" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Contact Us</button>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <a href="tel:7703129523" class="text-sm font-medium text-stone-300 hover:text-brandGold transition flex items-center space-x-2">
+                        <i class="fa-solid fa-phone text-brandGold"></i>
+                        <span>(770) 312-9523</span>
+                    </a>
+                    <button onclick="openBookingModal()" class="bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold px-5 py-2.5 rounded-full shadow transition transform hover:-translate-y-0.5">
+                        Book a Tour
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-stone-300 hover:text-white p-2 focus:outline-none" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-equine-900 border-t border-equine-800 px-4 pt-3 pb-5 space-y-2">
+            <button onclick="switchPage('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-brandGold bg-equine-800">Home</button>
+            <button onclick="switchPage('lessons'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Lessons & Training</button>
+            <button onclick="switchPage('boarding'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Boarding & Facility</button>
+            <button onclick="switchPage('sales'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Horses for Sale</button>
+            <button onclick="switchPage('contact'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Contact Us</button>
+            <div class="pt-3 border-t border-equine-800 flex flex-col space-y-3">
+                <a href="tel:7703129523" class="text-sm font-medium text-stone-300 flex items-center space-x-2 px-3">
+                    <i class="fa-solid fa-phone text-brandGold"></i>
+                    <span>(770) 312-9523</span>
+                </a>
+                <button onclick="openBookingModal(); toggleMobileMenu();" class="w-full bg-brandGold text-equine-900 font-semibold py-2.5 rounded-full text-center shadow">
+                    Book a Tour
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <div id="page-home" class="page-view">
+            <!-- Hero Section (Navy blue solid background with central logo background) -->
+            <section class="logo-banner text-white py-24 sm:py-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div class="max-w-4xl mx-auto text-center space-y-6 flex flex-col items-center relative z-10">
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight leading-tight text-brandPink">
+                        Where Passion Meets <span class="italic text-brandPink">Excellence</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-brandPinkLight max-w-2xl mx-auto font-light">
+                        Premier full-service equestrian boarding, customized hunter/jumper training, elite sales representation, and world-class care set on 12 picturesque acres.
+                    </p>
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="switchPage('sales')" class="w-full sm:w-auto bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold px-8 py-3.5 rounded-full shadow-lg transition">
+                            View Horses For Sale
+                        </button>
+                        <button onclick="openBookingModal()" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-brandPink border border-brandPink/30 font-semibold px-8 py-3.5 rounded-full backdrop-blur transition">
+                            Schedule Visit
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unique Home Highlights -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-equine-900">The Cricket Hill Standard</h2>
+                    <div class="w-20 h-1 bg-brandGold mx-auto rounded"></div>
+                    <p class="text-stone-600 text-base sm:text-lg">
+                        Founded with a vision to cultivate top-tier equine athletes and confident riders in an atmosphere of mutual respect and integrity.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 text-center space-y-3">
+                        <div class="w-12 h-12 rounded-full bg-equine-50 text-brandGold mx-auto flex items-center justify-center text-xl font-bold font-serif">12</div>
+                        <h3 class="font-serif font-bold text-equine-900 text-lg">Acres of Land</h3>
+                        <p class="text-stone-600 text-xs leading-relaxed">Pristine pastures, cross-country schooling loops, and wooded riding tracks.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 text-center space-y-3">
+                        <div class="w-12 h-12 rounded-full bg-equine-50 text-brandGold mx-auto flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-medal"></i></div>
+                        <h3 class="font-serif font-bold text-equine-900 text-lg">Champion Pedigree</h3>
+                        <p class="text-stone-600 text-xs leading-relaxed">Proven track record developing A-Circuit hunter and equitation winners.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 text-center space-y-3">
+                        <div class="w-12 h-12 rounded-full bg-equine-50 text-brandGold mx-auto flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-user-shield"></i></div>
+                        <h3 class="font-serif font-bold text-equine-900 text-lg">24/7 Supervision</h3>
+                        <p class="text-stone-600 text-xs leading-relaxed">Experienced equine professionals residing on property with round-the-clock care.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 text-center space-y-3">
+                        <div class="w-12 h-12 rounded-full bg-equine-50 text-brandGold mx-auto flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-handshake"></i></div>
+                        <h3 class="font-serif font-bold text-equine-900 text-lg">Trusted Sales</h3>
+                        <p class="text-stone-600 text-xs leading-relaxed">Honest matchmaking connecting discerning buyers with exceptional equine partners.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 2: LESSONS & TRAINING ================= -->
+        <div id="page-lessons" class="page-view hidden">
+            <!-- Page Header -->
+            <section class="logo-banner text-white py-24 sm:py-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div class="max-w-4xl mx-auto text-center space-y-6 flex flex-col items-center relative z-10">
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight leading-tight text-brandPink">Lessons & Professional <span class="text-brandPink">Training</span></h1>
+                    <p class="text-lg sm:text-xl text-brandPinkLight max-w-2xl mx-auto font-light">
+                        Structured developmental programs designed to foster confidence, technical precision, and harmonious horse-rider partnerships.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Programs & Pricing Grid -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Private Lessons -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between">
+                        <div class="p-8 space-y-4">
+                            <span class="bg-equine-50 text-equine-600 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
+                            <h3 class="text-2xl font-serif font-bold text-equine-900">Private Riding Lessons</h3>
+                            <div class="text-3xl font-serif font-bold text-brandGold">$95 <span class="text-sm font-sans font-normal text-stone-500">/ session</span></div>
+                            <p class="text-stone-600 text-sm leading-relaxed">
+                                One-on-one personalized instruction tailored to exact rider goals, whether refining flatwork fundamentals or mastering course navigation over fences.
+                            </p>
+                            <ul class="space-y-3 text-sm text-stone-700 pt-4 border-t border-stone-100">
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>45-minute individualized session</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Use of premier school horses or own horse</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Video review and homework plan</span></li>
+                            </ul>
+                        </div>
+                        <div class="p-8 pt-0">
+                            <button onclick="openBookingModal('Private Lesson Inquiry')" class="w-full bg-equine-900 hover:bg-equine-800 text-white font-semibold py-3 rounded-xl transition">
+                                Request Lesson Slot
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Full Training Program -->
+                    <div class="bg-white rounded-2xl shadow-md border-2 border-brandGold overflow-hidden flex flex-col justify-between relative">
+                        <div class="absolute top-0 right-0 bg-brandGold text-equine-900 text-xs font-bold px-4 py-1.5 rounded-bl-xl uppercase">Comprehensive</div>
+                        <div class="p-8 space-y-4">
+                            <span class="bg-brandGold/10 text-equine-900 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Full Training</span>
+                            <h3 class="text-2xl font-serif font-bold text-equine-900">Full Horse Training</h3>
+                            <div class="text-3xl font-serif font-bold text-brandGold">$850 <span class="text-sm font-sans font-normal text-stone-500">/ month</span></div>
+                            <p class="text-stone-600 text-sm leading-relaxed">
+                                Professional schooling and conditioning rides for your horse by our expert trainers, ensuring consistent progress and competitive readiness.
+                            </p>
+                            <ul class="space-y-3 text-sm text-stone-700 pt-4 border-t border-stone-100">
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>4 professional rides/training sessions per week</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Includes 2 private lessons for owner/rider</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Regular updates and competition planning</span></li>
+                            </ul>
+                        </div>
+                        <div class="p-8 pt-0">
+                            <button onclick="openBookingModal('Full Training Inquiry')" class="w-full bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold py-3 rounded-xl transition shadow">
+                                Inquire About Training
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Show Team Coaching -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between">
+                        <div class="p-8 space-y-4">
+                            <span class="bg-equine-50 text-equine-600 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Competitive</span>
+                            <h3 class="text-2xl font-serif font-bold text-equine-900">Show Team Coaching</h3>
+                            <div class="text-3xl font-serif font-bold text-brandGold">Custom <span class="text-sm font-sans font-normal text-stone-500">/ show</span></div>
+                            <p class="text-stone-600 text-sm leading-relaxed">
+                                Dedicated on-site coaching, warm-up preparation, and complete management at local and rated AA hunter/jumper competitions.
+                            </p>
+                            <ul class="space-y-3 text-sm text-stone-700 pt-4 border-t border-stone-100">
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Course walk-throughs & strategy coaching</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Complete ringside support & grooming help</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Hauling coordination included</span></li>
+                            </ul>
+                        </div>
+                        <div class="p-8 pt-0">
+                            <button onclick="openBookingModal('Show Team Inquiry')" class="w-full bg-equine-900 hover:bg-equine-800 text-white font-semibold py-3 rounded-xl transition">
+                                Join Show Team
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 3: BOARDING & FACILITY ================= -->
+        <div id="page-boarding" class="page-view hidden">
+            <!-- Page Header -->
+            <section class="logo-banner text-white py-24 sm:py-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div class="max-w-4xl mx-auto text-center space-y-6 flex flex-col items-center relative z-10">
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight leading-tight text-brandPink">Boarding & Premium <span class="text-brandPink">Amenities</span></h1>
+                    <p class="text-lg sm:text-xl text-brandPinkLight max-w-2xl mx-auto font-light">
+                        Designed with equine safety, health, and rider convenience as our absolute top priorities.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Amenities Details -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="text-brandGold font-semibold uppercase tracking-wider text-sm">Unmatched Stabling</span>
+                        <h2 class="text-3xl font-serif font-bold text-equine-900">Spacious Barns & Personalized Care</h2>
+                        <p class="text-stone-600 leading-relaxed">
+                            Our newly constructed barn features decorative stall fronts, 12 x 12 rubber matted stalls, excellent cross-ventilation and 3 wash racks.  A large tack room and a huge 16 foot center aisle allow you to move freely with your horse through the facility.  Every horse receives customized feeding schedules with premium hays and grains.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="bg-white p-4 rounded-xl border border-stone-200">
+                                <div class="font-bold text-equine-900 text-lg">Daily Turnout</div>
+                                <div class="text-xs text-stone-500">Individual or small group lush pastures</div>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-stone-200">
+                                <div class="font-bold text-equine-900 text-lg">Blanketing</div>
+                                <div class="text-xs text-stone-500">Seasonal care & fly sheet management</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-stone-200 h-80 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=800&q=80" alt="Stable Facility" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center flex-col-reverse lg:flex-row">
+                    <div class="order-2 lg:order-1 bg-stone-200 h-80 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?auto=format&fit=crop&w=800&q=80" alt="Competition Sized Riding Ring" class="w-full h-full object-cover">
+                    </div>
+                    <div class="order-1 lg:order-2 space-y-6">
+                        <span class="text-brandGold font-semibold uppercase tracking-wider text-sm">Competition Sized Riding Ring</span>
+                        <h2 class="text-3xl font-serif font-bold text-equine-900">Arena Features</h2>
+                        <p class="text-stone-600 leading-relaxed">
+                            Our huge, 150 x 250 riding ring offers the size and scale to suit any equine riding discipline.  The new arena offers a professionally grade sub-surface, as well as new sand and complete set of jumps and flatwork equipment.
+                        </p>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-center space-x-3"><i class="fa-solid fa-circle-check text-brandGold"></i><span>Professional graded all-weather footing</span></li>
+                            <li class="flex items-center space-x-3"><i class="fa-solid fa-circle-check text-brandGold"></i><span>Full jump park with fillers & cavaletti</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 4: HORSES FOR SALE ================= -->
+        <div id="page-sales" class="page-view hidden">
+            <!-- Page Header -->
+            <section class="logo-banner text-white py-24 sm:py-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div class="max-w-4xl mx-auto text-center space-y-6 flex flex-col items-center relative z-10">
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight leading-tight text-brandPink">Horses for <span class="text-brandPink">Sale</span></h1>
+                    <p class="text-lg sm:text-xl text-brandPinkLight max-w-2xl mx-auto font-light">
+                        Explore our current selection of talented hunters, jumpers, and equitation mounts. Each horse is carefully evaluated for temperament, training, and soundness.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Sales Library Grid -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Horse 1: Carismo Z (Jumper Photos) -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between group">
+                        <div>
+                            <!-- Carousel Container for Horse 1 -->
+                            <div class="h-64 relative overflow-hidden bg-stone-900 carousel-container" id="carousel-1" data-current="0">
+                                <div class="carousel-track flex h-full transition-transform duration-500 ease-in-out">
+                                    <div class="carousel-slide min-w-full h-full relative">
+                                        <img src="_BI_9463-Edit-Edit-3.JPG" alt="Carismo Z full body" class="w-full h-full object-cover object-[center_35%]">
+                                    </div>
+                                    <div class="carousel-slide min-w-full h-full relative">
+                                        <img src="_BI_9529-Edit-Edit-3.JPG" alt="Carismo Z head" class="w-full h-full object-cover object-[center_30%]">
+                                    </div>
+                                    <div class="carousel-slide min-w-full h-full relative cursor-pointer" onclick="openVideoModal('Carismo Z Video', null, 'IMG_0546.mp4')">
+                                        <video src="IMG_0546.mp4#t=0.1" preload="metadata" muted playsinline class="w-full h-full object-cover"></video>
+                                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition">
+                                            <div class="w-12 h-12 rounded-full bg-brandGold text-equine-900 flex items-center justify-center text-lg shadow">
+                                                <i class="fa-solid fa-play ml-0.5"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carousel Controls -->
+                                <button onclick="moveCarousel(1, -1); event.stopPropagation();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button onclick="moveCarousel(1, 1); event.stopPropagation();" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                                <div class="absolute top-3 left-3 bg-equine-900/80 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-medium z-10">Jumper / Equitation</div>
+                                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5 z-10">
+                                    <span class="w-2 h-2 rounded-full bg-white indicator-1-0 opacity-100"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/50 indicator-1-1"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/50 indicator-1-2"></span>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex justify-between items-baseline">
+                                    <h3 class="text-2xl font-serif font-bold text-equine-900">Carismo Z</h3>
+                                    <span class="text-brandGold font-bold text-lg">Mid-5 Figures</span>
+                                </div>
+                                <div class="flex space-x-4 text-xs text-stone-500 font-medium">
+                                    <span><i class="fa-solid fa-ruler-vertical mr-1 text-brandGold"></i> 16.2 HH</span>
+                                    <span><i class="fa-solid fa-cake-candles mr-1 text-brandGold"></i> 8 Years</span>
+                                    <span><i class="fa-solid fa-horse-head mr-1 text-brandGold"></i> Zangersheide Gelding</span>
+                                </div>
+                                <p class="text-stone-600 text-sm leading-relaxed">
+                                    Extremely brave, uncomplicated, and straightforward. Has successfully competed in 1.15m jumper classes with an amateur and possesses automatic flying changes.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <button onclick="openBookingModal('Inquiry: Carismo Z')" class="w-full bg-equine-900 hover:bg-equine-800 text-white font-semibold py-2.5 rounded-xl transition text-sm">
+                                Schedule Trial / Inquire
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Horse 2: Royal Impression (Hunter Derby Photos) -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between group">
+                        <div>
+                            <!-- Carousel Container for Horse 2 -->
+                            <div class="h-64 relative overflow-hidden bg-stone-900 carousel-container" id="carousel-2" data-current="0">
+                                <div class="carousel-track flex h-full transition-transform duration-500 ease-in-out">
+                                    <div class="carousel-slide min-w-full h-full relative">
+                                        <img src="_BI_9463-Edit-Edit-3.JPG" alt="Royal Impression full body" class="w-full h-full object-cover object-[center_35%]">
+                                    </div>
+                                    <div class="carousel-slide min-w-full h-full relative">
+                                        <img src="_BI_9529-Edit-Edit-3.JPG" alt="Royal Impression head" class="w-full h-full object-cover object-[center_30%]">
+                                    </div>
+                                    <div class="carousel-slide min-w-full h-full relative cursor-pointer" onclick="openVideoModal('Royal Impression Video', null, 'IMG_0546.mp4')">
+                                        <video src="IMG_0546.mp4#t=0.1" preload="metadata" muted playsinline class="w-full h-full object-cover"></video>
+                                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition">
+                                            <div class="w-12 h-12 rounded-full bg-brandGold text-equine-900 flex items-center justify-center text-lg shadow">
+                                                <i class="fa-solid fa-play ml-0.5"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carousel Controls -->
+                                <button onclick="moveCarousel(2, -1); event.stopPropagation();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button onclick="moveCarousel(2, 1); event.stopPropagation();" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                                <div class="absolute top-3 left-3 bg-equine-900/80 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-medium z-10">Hunter / Derby</div>
+                                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5 z-10">
+                                    <span class="w-2 h-2 rounded-full bg-white indicator-2-0 opacity-100"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/50 indicator-2-1"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/50 indicator-2-2"></span>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex justify-between items-baseline">
+                                    <h3 class="text-2xl font-serif font-bold text-equine-900">Royal Impression</h3>
+                                    <span class="text-brandGold font-bold text-lg">High-5 Figures</span>
+                                </div>
+                                <div class="flex space-x-4 text-xs text-stone-500 font-medium">
+                                    <span><i class="fa-solid fa-ruler-vertical mr-1 text-brandGold"></i> 16.0 HH</span>
+                                    <span><i class="fa-solid fa-cake-candles mr-1 text-brandGold"></i> 6 Years</span>
+                                    <span><i class="fa-solid fa-horse-head mr-1 text-brandGold"></i> Oldenburg Mare</span>
+                                </div>
+                                <p class="text-stone-600 text-sm leading-relaxed">
+                                    Gorgeous dark bay mare with a glowing floating trot and a natural 10 out-of-the-box jump. Ready to excel in 3' Performance Hunters and national derbies.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <button onclick="openBookingModal('Inquiry: Royal Impression')" class="w-full bg-equine-900 hover:bg-equine-800 text-white font-semibold py-2.5 rounded-xl transition text-sm">
+                                Schedule Trial / Inquire
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Horse 3: Dublin Lad (Children's Small Pony Photos) -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between group">
+                        <div>
+                            <!-- Carousel Container for Horse 3 -->
+                            <div class="h-64 relative overflow-hidden bg-stone-900 carousel-container" id="carousel-3" data-current="0">
+                                <div class="carousel-track flex h-full transition-transform duration-500 ease-in-out">
+                                    <div class="carousel-slide min-w-full h-full relative">
+                                        <img src="_BI_9463-Edit-Edit-3.JPG" alt="Dublin Lad full body" class="w-full h-full object-cover object-[center_35%]">
+                                    </div>
+                                    <div class="carousel-slide min-w-full h-full relative">
+                                        <img src="_BI_9529-Edit-Edit-3.JPG" alt="Dublin Lad head" class="w-full h-full object-cover object-[center_30%]">
+                                    </div>
+                                    <div class="carousel-slide min-w-full h-full relative cursor-pointer" onclick="openVideoModal('Dublin Lad Video', null, 'IMG_0546.mp4')">
+                                        <video src="IMG_0546.mp4#t=0.1" preload="metadata" muted playsinline class="w-full h-full object-cover"></video>
+                                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition">
+                                            <div class="w-12 h-12 rounded-full bg-brandGold text-equine-900 flex items-center justify-center text-lg shadow">
+                                                <i class="fa-solid fa-play ml-0.5"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carousel Controls -->
+                                <button onclick="moveCarousel(3, -1); event.stopPropagation();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button onclick="moveCarousel(3, 1); event.stopPropagation();" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                                <div class="absolute top-3 left-3 bg-equine-900/80 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-medium z-10">Children's Small Pony</div>
+                                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-1.5 z-10">
+                                    <span class="w-2 h-2 rounded-full bg-white indicator-3-0 opacity-100"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/50 indicator-3-1"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/50 indicator-3-2"></span>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex justify-between items-baseline">
+                                    <h3 class="text-2xl font-serif font-bold text-equine-900">Dublin Lad</h3>
+                                    <span class="text-brandGold font-bold text-lg">Mid-5 Figures</span>
+                                </div>
+                                <div class="flex space-x-4 text-xs text-stone-500 font-medium">
+                                    <span><i class="fa-solid fa-ruler-vertical mr-1 text-brandGold"></i> 13.1 HH</span>
+                                    <span><i class="fa-solid fa-cake-candles mr-1 text-brandGold"></i> 11 Years</span>
+                                    <span><i class="fa-solid fa-horse-head mr-1 text-brandGold"></i> Small Welsh Pony</span>
+                                </div>
+                                <p class="text-stone-600 text-sm leading-relaxed">
+                                    The ultimate children's small pony teacher and confidence builder. Safe, kind, and forgiving. Has taken numerous young riders from cross-rails up to 2'6" children's pony hunter divisions.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <button onclick="openBookingModal('Inquiry: Dublin Lad')" class="w-full bg-equine-900 hover:bg-equine-800 text-white font-semibold py-2.5 rounded-xl transition text-sm">
+                                Schedule Trial / Inquire
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Consignment Banner -->
+                <div class="bg-equine-50 border border-equine-100 rounded-2xl p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="space-y-2 text-center sm:text-left">
+                        <h3 class="text-2xl font-serif font-bold text-equine-900">Looking to Sell Your Horse?</h3>
+                        <p class="text-stone-600 text-sm max-w-xl">
+                            Let Cricket Hill Farm market and present your horse to our extensive network of buyers. We handle professional media production, trial vetting, and client negotiations.
+                        </p>
+                    </div>
+                    <button onclick="openBookingModal('Consignment Inquiry')" class="bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold px-8 py-3.5 rounded-full shadow transition flex-shrink-0">
+                        Inquire About Consignment
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 5: CONTACT ================= -->
+        <div id="page-contact" class="page-view hidden">
+            <!-- Page Header -->
+            <section class="logo-banner text-white py-24 sm:py-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div class="max-w-4xl mx-auto text-center space-y-6 flex flex-col items-center relative z-10">
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight leading-tight text-brandPink">Contact Cricket Hill <span class="text-brandPink">Farm</span></h1>
+                    <p class="text-lg sm:text-xl text-brandPinkLight max-w-2xl mx-auto font-light">
+                        We would love to hear from you. Reach out to schedule a tour or ask any questions about our facility.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Contact Form & Info Grid -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-stone-200">
+                        <h3 class="text-2xl font-serif font-bold text-equine-900 mb-6">Send Us a Message</h3>
+                        <form onsubmit="handleContactSubmit(event)" class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Full Name</label>
+                                <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold" placeholder="Jane Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Email Address</label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold" placeholder="jane@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Phone Number</label>
+                                <input type="tel" name="phone" class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold" placeholder="(555) 000-0000">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Inquiry Type</label>
+                                <select name="inquiry" class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold">
+                                    <option>Boarding Availability</option>
+                                    <option>Riding Lessons & Training</option>
+                                    <option>Horses for Sale / Trial</option>
+                                    <option>Facility Tour</option>
+                                    <option>General Question</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Message</label>
+                                <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold" placeholder="Tell us about your equestrian goals..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold py-3.5 rounded-xl transition shadow">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Details & Map Placeholder -->
+                    <div class="space-y-8">
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 space-y-6">
+                            <h3 class="text-2xl font-serif font-bold text-equine-900">Farm Location & Hours</h3>
+                            <div class="space-y-4 text-stone-600">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 rounded-lg bg-equine-50 text-brandGold flex items-center justify-center text-lg flex-shrink-0">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-equine-900">Address</div>
+                                        <div>12855 Highway 85, Senoia, GA</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 rounded-lg bg-equine-50 text-brandGold flex items-center justify-center text-lg flex-shrink-0">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-equine-900">Phone</div>
+                                        <div>(770) 312-9523</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 rounded-lg bg-equine-50 text-brandGold flex items-center justify-center text-lg flex-shrink-0">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-equine-900">Email</div>
+                                        <div>info@crickethillfarm.com</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 rounded-lg bg-equine-50 text-brandGold flex items-center justify-center text-lg flex-shrink-0">
+                                        <i class="fa-solid fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-equine-900">Visiting Hours</div>
+                                        <div>Tuesday – Sunday: 8:00 AM – 7:00 PM<br>Monday: Closed for Barn Maintenance</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-equine-900 text-white p-8 rounded-2xl shadow-sm text-center space-y-4 border border-brandPink/20">
+                            <span class="bg-brandPink/20 text-brandPink border border-brandPink/40 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">Plan A Visit</span>
+                            <h4 class="text-xl font-serif font-bold text-brandPink">Ready to Visit Us?</h4>
+                            <p class="text-sm text-brandPinkLight">We welcome scheduled visitors to tour our barns, arenas, and sales horses.</p>
+                            <button onclick="openBookingModal()" class="bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold px-6 py-3 rounded-full transition shadow">
+                                Book a Tour Online
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Booking / Tour Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="space-y-2 mb-6">
+                <h3 id="modal-title" class="text-2xl font-serif font-bold text-equine-900">Schedule Your Farm Tour</h3>
+                <p class="text-stone-600 text-sm">Fill out the details below and our farm manager will confirm your appointment shortly.</p>
+            </div>
+            <form onsubmit="handleModalSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-stone-700 mb-1">Your Name</label>
+                    <input type="text" name="name" required class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold" placeholder="Full Name">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-stone-700 mb-1">Email or Phone</label>
+                    <input type="text" name="contact" required class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold" placeholder="Email or Phone Number">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 mb-1">Preferred Date</label>
+                        <input type="date" name="date" required class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 mb-1">Time Slot</label>
+                        <select name="time" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-brandGold">
+                            <option>Morning (10:00 AM)</option>
+                            <option>Afternoon (2:00 PM)</option>
+                            <option>Late Afternoon (4:30 PM)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold py-3 rounded-xl transition shadow mt-2">
+                    Confirm Appointment Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Video Preview Modal -->
+    <div id="video-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-equine-900 rounded-2xl max-w-4xl w-full p-4 sm:p-6 shadow-2xl relative border border-equine-800">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="video-modal-title" class="text-xl font-serif font-bold text-white">Horse Video Preview</h3>
+                <button onclick="closeVideoModal()" class="text-stone-400 hover:text-white text-xl p-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="aspect-video bg-black rounded-xl overflow-hidden relative flex items-center justify-center">
+                <video id="video-modal-video" controls playsinline class="hidden w-full h-full object-contain"></video>
+                <div id="video-modal-sim" class="absolute inset-0">
+                    <img id="video-modal-img" src="" alt="Video Simulation" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/50 space-y-3">
+                        <div class="w-20 h-20 rounded-full bg-brandGold text-equine-900 flex items-center justify-center text-3xl shadow-xl animate-pulse">
+                            <i class="fa-solid fa-play ml-1"></i>
+                        </div>
+                        <span class="text-white text-sm font-medium tracking-wide">Simulated Video Stream & Over-fences Footage</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-equine-900 text-white px-6 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 border border-brandGold/40">
+        <i class="fa-solid fa-circle-check text-brandGold text-xl"></i>
+        <div>
+            <div class="font-bold text-sm">Success!</div>
+            <div id="toast-message" class="text-xs text-stone-300">Your request has been received.</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-equine-900 text-stone-400 py-16 border-t border-equine-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="space-y-4 md:col-span-2">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-brandGold flex items-center justify-center text-equine-900 font-serif font-bold text-sm">
+                        CF
+                    </div>
+                    <span class="text-xl font-serif font-bold text-white tracking-wider">Cricket Hill Farm</span>
+                </div>
+                <p class="text-sm max-w-sm text-stone-400">
+                    Dedicated to providing exceptional care for horses and cultivating skilled, confident equestrians in a welcoming community.
+                </p>
+            </div>
+            <div class="space-y-3">
+                <div class="text-white font-semibold text-sm uppercase tracking-wider">Quick Links</div>
+                <ul class="space-y-2 text-sm">
+                    <li><button onclick="switchPage('home')" class="hover:text-brandGold transition">Home</button></li>
+                    <li><button onclick="switchPage('lessons')" class="hover:text-brandGold transition">Lessons & Training</button></li>
+                    <li><button onclick="switchPage('boarding')" class="hover:text-brandGold transition">Boarding & Facility</button></li>
+                    <li><button onclick="switchPage('sales')" class="hover:text-brandGold transition">Horses for Sale</button></li>
+                    <li><button onclick="switchPage('contact')" class="hover:text-brandGold transition">Contact Us</button></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <div class="text-white font-semibold text-sm uppercase tracking-wider">Connect</div>
+                <div class="flex space-x-4 text-xl">
+                    <a href="#" class="text-stone-400 hover:text-brandGold transition"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-stone-400 hover:text-brandGold transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-stone-400 hover:text-brandGold transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <div class="text-xs pt-2 text-stone-500">© 2026 Cricket Hill Farm. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page-view');
+            pages.forEach(p => p.classList.add('hidden'));
+
+            // Show target page
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            // Update nav buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('text-brandGold', 'border-brandGold');
+                btn.classList.add('text-stone-300', 'border-transparent');
+            });
+
+            const activeBtn = document.getElementById('nav-' + pageId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-stone-300', 'border-transparent');
+                activeBtn.classList.add('text-brandGold', 'border-brandGold');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function moveCarousel(horseId, direction) {
+            const container = document.getElementById('carousel-' + horseId);
+            const track = container.querySelector('.carousel-track');
+            let current = parseInt(container.getAttribute('data-current'));
+            const totalSlides = 3;
+            
+            current = (current + direction + totalSlides) % totalSlides;
+            container.setAttribute('data-current', current);
+            
+            track.style.transform = `translateX(-${current * 100}%)`;
+
+            // Update indicators
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = container.querySelector('.indicator-' + horseId + '-' + i);
+                if (indicator) {
+                    if (i === current) {
+                        indicator.classList.remove('opacity-50');
+                        indicator.classList.add('opacity-100');
+                    } else {
+                        indicator.classList.remove('opacity-100');
+                        indicator.classList.add('opacity-50');
+                    }
+                }
+            }
+        }
+
+        function openBookingModal(customTitle) {
+            const modal = document.getElementById('booking-modal');
+            const titleEl = document.getElementById('modal-title');
+            if (customTitle) {
+                titleEl.textContent = customTitle;
+            } else {
+                titleEl.textContent = "Schedule Your Farm Tour";
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            modal.classList.add('hidden');
+        }
+
+        function openVideoModal(title, imageUrl, videoUrl) {
+            const modal = document.getElementById('video-modal');
+            const titleEl = document.getElementById('video-modal-title');
+            const imgEl = document.getElementById('video-modal-img');
+            const simEl = document.getElementById('video-modal-sim');
+            const videoEl = document.getElementById('video-modal-video');
+            titleEl.textContent = title;
+            if (videoUrl) {
+                simEl.classList.add('hidden');
+                videoEl.src = videoUrl;
+                videoEl.classList.remove('hidden');
+                videoEl.play().catch(() => {});
+            } else {
+                videoEl.classList.add('hidden');
+                simEl.classList.remove('hidden');
+                imgEl.src = imageUrl;
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            const videoEl = document.getElementById('video-modal-video');
+            videoEl.pause();
+            videoEl.removeAttribute('src');
+            videoEl.load();
+            modal.classList.add('hidden');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+
+        async function handleContactSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const f = new FormData(form);
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            try {
+                const res = await fetch('https://formsubmit.co/ajax/annaetootle@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: `Website Inquiry: ${f.get('inquiry')}`,
+                        _replyto: f.get('email'),
+                        _cc: 'craigtootle@gmail.com',
+                        _template: 'table',
+                        _captcha: 'false',
+                        Name: f.get('name'),
+                        Email: f.get('email'),
+                        Phone: f.get('phone') || 'n/a',
+                        'Inquiry Type': f.get('inquiry'),
+                        Message: f.get('message')
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok || data.success === 'false') throw new Error(data.message || 'Send failed');
+                showToast("Your message has been sent successfully!");
+                form.reset();
+            } catch (err) {
+                showToast("Sorry, your message could not be sent. Please call us at (770) 312-9523.");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function handleModalSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const f = new FormData(form);
+            const topic = document.getElementById('modal-title').textContent;
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            try {
+                const res = await fetch('https://formsubmit.co/ajax/annaetootle@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: `Appointment Request: ${topic}`,
+                        _cc: 'craigtootle@gmail.com',
+                        _template: 'table',
+                        _captcha: 'false',
+                        Request: topic,
+                        Name: f.get('name'),
+                        'Email or Phone': f.get('contact'),
+                        'Preferred Date': f.get('date'),
+                        'Time Slot': f.get('time')
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok || data.success === 'false') throw new Error(data.message || 'Send failed');
+                closeBookingModal();
+                showToast("Request received! We will contact you to confirm.");
+                form.reset();
+            } catch (err) {
+                showToast("Sorry, your request could not be sent. Please call us at (770) 312-9523.");
+            } finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
