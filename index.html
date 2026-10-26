@@ -309,6 +309,33 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Property Photo Carousel -->
+            <section class="pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8">
+                <div class="text-center space-y-2">
+                    <span class="text-brandGold font-semibold uppercase tracking-wider text-sm">Our Property</span>
+                    <h2 class="text-3xl font-serif font-bold text-equine-900">Take a Look Around the Farm</h2>
+                </div>
+                <div class="relative overflow-hidden rounded-2xl shadow-sm border border-stone-200 bg-stone-900 aspect-[4/3] sm:aspect-[16/10]" id="property-carousel" data-current="0">
+                    <div class="property-track flex h-full transition-transform duration-500 ease-in-out">
+                        <div class="min-w-full h-full">
+                            <img src="Pasture1.png" alt="Fenced pasture with pipe gates and tree line" class="w-full h-full object-cover">
+                        </div>
+                        <div class="min-w-full h-full">
+                            <img src="Pasture2.png" alt="Horses grazing in the pasture beneath tall pines" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <button onclick="moveProperty(-1)" aria-label="Previous photo" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button onclick="moveProperty(1)" aria-label="Next photo" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                        <span class="property-dot w-2.5 h-2.5 rounded-full bg-white opacity-100 cursor-pointer" onclick="moveProperty(0 - parseInt(document.getElementById('property-carousel').dataset.current))"></span>
+                        <span class="property-dot w-2.5 h-2.5 rounded-full bg-white opacity-50 cursor-pointer" onclick="moveProperty(1 - parseInt(document.getElementById('property-carousel').dataset.current))"></span>                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- ================= PAGE 4: HORSES FOR SALE ================= -->
@@ -325,12 +352,20 @@
 
             <!-- Sales Library Grid -->
             <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+                <!-- Under Construction Notice -->
+                <div class="text-center py-12">
+                    <h3 class="text-3xl font-serif font-bold text-equine-900">This page is under construction</h3>
+                    <p class="text-stone-600 mt-3">Our horses for sale will be posted here soon. Please check back or contact us for current availability.</p>
+                </div>
+
+                <!-- HORSES TEMPORARILY HIDDEN: remove this comment wrapper (the opening tag here and the closing tag after the grid) to restore.
+                     Inner comments below were altered to "less-than, bang, dash, space, dash" style because HTML comments cannot nest; restore them to normal comments if re-enabling.
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <!-- Horse 1: Carismo Z (Jumper Photos) -->
+                    <!- - Horse 1: Carismo Z (Jumper Photos) - ->
                     <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between group">
                         <div>
-                            <!-- Carousel Container for Horse 1 -->
+                            <!- - Carousel Container for Horse 1 - ->
                             <div class="h-64 relative overflow-hidden bg-stone-900 carousel-container" id="carousel-1" data-current="0">
                                 <div class="carousel-track flex h-full transition-transform duration-500 ease-in-out">
                                     <div class="carousel-slide min-w-full h-full relative">
@@ -348,7 +383,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Carousel Controls -->
+                                <!- - Carousel Controls - ->
                                 <button onclick="moveCarousel(1, -1); event.stopPropagation();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
                                     <i class="fa-solid fa-chevron-left text-xs"></i>
                                 </button>
@@ -384,10 +419,10 @@
                         </div>
                     </div>
 
-                    <!-- Horse 2: Royal Impression (Hunter Derby Photos) -->
+                    <!- - Horse 2: Royal Impression (Hunter Derby Photos) - ->
                     <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between group">
                         <div>
-                            <!-- Carousel Container for Horse 2 -->
+                            <!- - Carousel Container for Horse 2 - ->
                             <div class="h-64 relative overflow-hidden bg-stone-900 carousel-container" id="carousel-2" data-current="0">
                                 <div class="carousel-track flex h-full transition-transform duration-500 ease-in-out">
                                     <div class="carousel-slide min-w-full h-full relative">
@@ -405,7 +440,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Carousel Controls -->
+                                <!- - Carousel Controls - ->
                                 <button onclick="moveCarousel(2, -1); event.stopPropagation();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
                                     <i class="fa-solid fa-chevron-left text-xs"></i>
                                 </button>
@@ -441,10 +476,10 @@
                         </div>
                     </div>
 
-                    <!-- Horse 3: Dublin Lad (Children's Small Pony Photos) -->
+                    <!- - Horse 3: Dublin Lad (Children's Small Pony Photos) - ->
                     <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between group">
                         <div>
-                            <!-- Carousel Container for Horse 3 -->
+                            <!- - Carousel Container for Horse 3 - ->
                             <div class="h-64 relative overflow-hidden bg-stone-900 carousel-container" id="carousel-3" data-current="0">
                                 <div class="carousel-track flex h-full transition-transform duration-500 ease-in-out">
                                     <div class="carousel-slide min-w-full h-full relative">
@@ -462,7 +497,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Carousel Controls -->
+                                <!- - Carousel Controls - ->
                                 <button onclick="moveCarousel(3, -1); event.stopPropagation();" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-8 h-8 rounded-full flex items-center justify-center transition z-10">
                                     <i class="fa-solid fa-chevron-left text-xs"></i>
                                 </button>
@@ -499,6 +534,7 @@
                     </div>
 
                 </div>
+                -->
 
                 <!-- Consignment Banner -->
                 <div class="bg-equine-50 border border-equine-100 rounded-2xl p-8 sm:p-12 flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -762,6 +798,19 @@
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
+        }
+
+        function moveProperty(direction) {
+            const container = document.getElementById('property-carousel');
+            const dots = container.querySelectorAll('.property-dot');
+            const total = dots.length;
+            const current = (parseInt(container.dataset.current) + direction + total) % total;
+            container.dataset.current = current;
+            container.querySelector('.property-track').style.transform = `translateX(-${current * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('opacity-100', i === current);
+                dot.classList.toggle('opacity-50', i !== current);
+            });
         }
 
         function moveCarousel(horseId, direction) {
