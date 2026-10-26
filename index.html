@@ -319,10 +319,16 @@
                 <div class="relative overflow-hidden rounded-2xl shadow-sm border border-stone-200 bg-stone-900 aspect-[4/3] sm:aspect-[16/10]" id="property-carousel" data-current="0">
                     <div class="property-track flex h-full transition-transform duration-500 ease-in-out">
                         <div class="min-w-full h-full">
-                            <img src="Pasture1.png" alt="Fenced pasture with pipe gates and tree line" class="w-full h-full object-cover">
+                            <img src="chf%20pic%204.jpeg" alt="Horses grazing in the pasture beneath tall pines" class="w-full h-full object-cover">
                         </div>
                         <div class="min-w-full h-full">
-                            <img src="Pasture2.png" alt="Horses grazing in the pasture beneath tall pines" class="w-full h-full object-cover">
+                            <img src="chf%20pic%205.jpeg" alt="Open pasture with new fence line and tree line" class="w-full h-full object-cover">
+                        </div>
+                        <div class="min-w-full h-full">
+                            <img src="chf%20pic%206.jpeg" alt="Pasture with pipe gates and new fencing" class="w-full h-full object-cover">
+                        </div>
+                        <div class="min-w-full h-full">
+                            <img src="chf%20pic%207.jpeg" alt="Fenced pasture along the tree line" class="w-full h-full object-cover">
                         </div>
                     </div>
                     <button onclick="moveProperty(-1)" aria-label="Previous photo" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10">
@@ -333,7 +339,9 @@
                     </button>
                     <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
                         <span class="property-dot w-2.5 h-2.5 rounded-full bg-white opacity-100 cursor-pointer" onclick="moveProperty(0 - parseInt(document.getElementById('property-carousel').dataset.current))"></span>
-                        <span class="property-dot w-2.5 h-2.5 rounded-full bg-white opacity-50 cursor-pointer" onclick="moveProperty(1 - parseInt(document.getElementById('property-carousel').dataset.current))"></span>                    </div>
+                        <span class="property-dot w-2.5 h-2.5 rounded-full bg-white opacity-50 cursor-pointer" onclick="moveProperty(1 - parseInt(document.getElementById('property-carousel').dataset.current))"></span>
+                        <span class="property-dot w-2.5 h-2.5 rounded-full bg-white opacity-50 cursor-pointer" onclick="moveProperty(2 - parseInt(document.getElementById('property-carousel').dataset.current))"></span>
+                        <span class="property-dot w-2.5 h-2.5 rounded-full bg-white opacity-50 cursor-pointer" onclick="moveProperty(3 - parseInt(document.getElementById('property-carousel').dataset.current))"></span>                    </div>
                 </div>
             </section>
         </div>
