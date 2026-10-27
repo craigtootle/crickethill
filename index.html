@@ -69,11 +69,11 @@
 
                 <!-- Desktop Nav Links -->
                 <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                    <button onclick="switchPage('home')" id="nav-home" class="nav-btn text-brandGold font-medium transition hover:text-brandGold py-2 border-b-2 border-brandGold">Home</button>
-                    <button onclick="switchPage('lessons')" id="nav-lessons" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Lessons & Training</button>
-                    <button onclick="switchPage('boarding')" id="nav-boarding" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Boarding & Facility</button>
-                    <button onclick="switchPage('sales')" id="nav-sales" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Horses for Sale</button>
-                    <button onclick="switchPage('contact')" id="nav-contact" class="nav-btn text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Contact Us</button>
+                    <button onclick="switchPage('home')" id="nav-home" class="nav-btn text-sm text-brandGold font-medium transition hover:text-brandGold py-2 border-b-2 border-brandGold">Home</button>
+                    <button onclick="switchPage('lessons')" id="nav-lessons" class="nav-btn text-sm text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Lessons & Training</button>
+                    <button onclick="switchPage('boarding')" id="nav-boarding" class="nav-btn text-sm text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Boarding & Facility</button>
+                    <button onclick="switchPage('sales')" id="nav-sales" class="nav-btn text-sm text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Horses for Sale/Lease</button>
+                    <button onclick="switchPage('contact')" id="nav-contact" class="nav-btn text-sm text-stone-300 font-medium transition hover:text-brandGold py-2 border-b-2 border-transparent">Contact Us</button>
                 </nav>
 
                 <!-- Header Actions -->
@@ -82,7 +82,7 @@
                         <i class="fa-solid fa-phone text-brandGold"></i>
                         <span>(770) 312-9523</span>
                     </a>
-                    <button onclick="openBookingModal()" class="bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold px-5 py-2.5 rounded-full shadow transition transform hover:-translate-y-0.5">
+                    <button onclick="openBookingModal()" class="bg-brandGold hover:bg-brandGoldHover text-equine-900 text-sm font-semibold px-4 py-1.5 rounded-full shadow transition transform hover:-translate-y-0.5">
                         Book a Tour
                     </button>
                 </div>
@@ -101,7 +101,7 @@
             <button onclick="switchPage('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-brandGold bg-equine-800">Home</button>
             <button onclick="switchPage('lessons'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Lessons & Training</button>
             <button onclick="switchPage('boarding'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Boarding & Facility</button>
-            <button onclick="switchPage('sales'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Horses for Sale</button>
+            <button onclick="switchPage('sales'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Horses for Sale/Lease</button>
             <button onclick="switchPage('contact'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-stone-300 hover:bg-equine-800 hover:text-white">Contact Us</button>
             <div class="pt-3 border-t border-equine-800 flex flex-col space-y-3">
                 <a href="tel:7703129523" class="text-sm font-medium text-stone-300 flex items-center space-x-2 px-3">
@@ -188,18 +188,22 @@
 
             <!-- Programs & Pricing Grid -->
             <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Private Lessons -->
                     <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between">
                         <div class="p-8 space-y-4">
                             <span class="bg-equine-50 text-equine-600 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
                             <h3 class="text-2xl font-serif font-bold text-equine-900">Private Riding Lessons</h3>
-                            <div class="text-3xl font-serif font-bold text-brandGold">$95 <span class="text-sm font-sans font-normal text-stone-500">/ session</span></div>
+                            <div class="text-3xl font-serif font-bold text-brandGold">$75 <span class="text-sm font-sans font-normal text-stone-500">/ session</span></div>
                             <p class="text-stone-600 text-sm leading-relaxed">
-                                One-on-one personalized instruction tailored to exact rider goals, whether refining flatwork fundamentals or mastering course navigation over fences.
+                                Personalized instruction tailored to exact rider goals, whether refining flatwork fundamentals or mastering course navigation over fences.
                             </p>
                             <ul class="space-y-3 text-sm text-stone-700 pt-4 border-t border-stone-100">
-                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>45-minute individualized session</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Private: 30 minutes, one-on-one</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Semi-private (2 riders): 45 minutes</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Group (3+ riders): 1 hour</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>$260/month once a week ($65/lesson)</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>$480/month twice a week ($60/lesson)</span></li>
                                 <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Use of premier school horses or own horse</span></li>
                                 <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Video review and homework plan</span></li>
                             </ul>
@@ -217,41 +221,20 @@
                         <div class="p-8 space-y-4">
                             <span class="bg-brandGold/10 text-equine-900 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Full Training</span>
                             <h3 class="text-2xl font-serif font-bold text-equine-900">Full Horse Training</h3>
-                            <div class="text-3xl font-serif font-bold text-brandGold">$850 <span class="text-sm font-sans font-normal text-stone-500">/ month</span></div>
+                            <div class="text-3xl font-serif font-bold text-brandGold"><span class="text-sm font-sans font-normal text-stone-500">from</span> $575 <span class="text-sm font-sans font-normal text-stone-500">/ month</span></div>
                             <p class="text-stone-600 text-sm leading-relaxed">
                                 Professional schooling and conditioning rides for your horse by our expert trainers, ensuring consistent progress and competitive readiness.
                             </p>
                             <ul class="space-y-3 text-sm text-stone-700 pt-4 border-t border-stone-100">
-                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>4 professional rides/training sessions per week</span></li>
-                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Includes 2 private lessons for owner/rider</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>3 days per week: $575/month</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>5 days per week: $825/month</span></li>
+                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Every day can be a lesson, a training ride, or a mix of both</span></li>
                                 <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Regular updates and competition planning</span></li>
                             </ul>
                         </div>
                         <div class="p-8 pt-0">
                             <button onclick="openBookingModal('Full Training Inquiry')" class="w-full bg-brandGold hover:bg-brandGoldHover text-equine-900 font-semibold py-3 rounded-xl transition shadow">
                                 Inquire About Training
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Show Team Coaching -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col justify-between">
-                        <div class="p-8 space-y-4">
-                            <span class="bg-equine-50 text-equine-600 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Competitive</span>
-                            <h3 class="text-2xl font-serif font-bold text-equine-900">Show Team Coaching</h3>
-                            <div class="text-3xl font-serif font-bold text-brandGold">Custom <span class="text-sm font-sans font-normal text-stone-500">/ show</span></div>
-                            <p class="text-stone-600 text-sm leading-relaxed">
-                                Dedicated on-site coaching, warm-up preparation, and complete management at local and rated AA hunter/jumper competitions.
-                            </p>
-                            <ul class="space-y-3 text-sm text-stone-700 pt-4 border-t border-stone-100">
-                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Course walk-throughs & strategy coaching</span></li>
-                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Complete ringside support & grooming help</span></li>
-                                <li class="flex items-center space-x-3"><i class="fa-solid fa-check text-brandGold"></i><span>Hauling coordination included</span></li>
-                            </ul>
-                        </div>
-                        <div class="p-8 pt-0">
-                            <button onclick="openBookingModal('Show Team Inquiry')" class="w-full bg-equine-900 hover:bg-equine-800 text-white font-semibold py-3 rounded-xl transition">
-                                Join Show Team
                             </button>
                         </div>
                     </div>
@@ -276,7 +259,8 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6">
                         <span class="text-brandGold font-semibold uppercase tracking-wider text-sm">Unmatched Stabling</span>
-                        <h2 class="text-3xl font-serif font-bold text-equine-900">Spacious Barns & Personalized Care</h2>
+                        <h2 class="text-3xl font-serif font-bold text-equine-900">Spacious Barn & Personalized Care</h2>
+                        <div class="text-xl font-serif font-bold text-brandGold">Boarding is offered at $950 <span class="text-sm font-sans font-normal text-stone-500">/ month</span></div>
                         <p class="text-stone-600 leading-relaxed">
                             Our newly constructed barn features decorative stall fronts, 12 x 12 rubber matted stalls, excellent cross-ventilation and 3 wash racks.  A large tack room and a huge 16 foot center aisle allow you to move freely with your horse through the facility.  Every horse receives customized feeding schedules with premium hays and grains.
                         </p>
@@ -351,7 +335,7 @@
             <!-- Page Header -->
             <section class="logo-banner text-white py-24 sm:py-36 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
                 <div class="max-w-4xl mx-auto text-center space-y-6 flex flex-col items-center relative z-10">
-                    <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight leading-tight text-brandPink">Horses for <span class="text-brandPink">Sale</span></h1>
+                    <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight leading-tight text-brandPink">Horses for <span class="text-brandPink">Sale/Lease</span></h1>
                     <p class="text-lg sm:text-xl text-brandPinkLight max-w-2xl mx-auto font-light">
                         Explore our current selection of talented hunters, jumpers, and equitation mounts. Each horse is carefully evaluated for temperament, training, and soundness.
                     </p>
@@ -360,10 +344,17 @@
 
             <!-- Sales Library Grid -->
             <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+                <!-- Horses for Lease -->
+                <div class="max-w-3xl mx-auto text-center space-y-4">
+                    <h2 class="text-3xl font-serif font-bold text-equine-900">Horses for Lease</h2>
+                    <p class="text-stone-600 leading-relaxed">
+                        We offer half-leases on our fabulous lesson horses and ponies starting at $785 per month. All half leases include 1 or 2 lessons a week and 2 free rides a week. Half leases are month to month, so it is a great way to have the feel of owning your own horse without the commitment.
+                    </p>
+                </div>
+
                 <!-- Under Construction Notice -->
                 <div class="text-center py-12">
-                    <h3 class="text-3xl font-serif font-bold text-equine-900">This page is under construction</h3>
-                    <p class="text-stone-600 mt-3">Our horses for sale will be posted here soon. Please check back or contact us for current availability.</p>
+                    <p class="text-stone-600">Our horses for sale will be posted here soon. Please check back or contact us for current availability.</p>
                 </div>
 
                 <!-- HORSES TEMPORARILY HIDDEN: remove this comment wrapper (the opening tag here and the closing tag after the grid) to restore.
@@ -759,7 +750,7 @@
                     <li><button onclick="switchPage('home')" class="hover:text-brandGold transition">Home</button></li>
                     <li><button onclick="switchPage('lessons')" class="hover:text-brandGold transition">Lessons & Training</button></li>
                     <li><button onclick="switchPage('boarding')" class="hover:text-brandGold transition">Boarding & Facility</button></li>
-                    <li><button onclick="switchPage('sales')" class="hover:text-brandGold transition">Horses for Sale</button></li>
+                    <li><button onclick="switchPage('sales')" class="hover:text-brandGold transition">Horses for Sale/Lease</button></li>
                     <li><button onclick="switchPage('contact')" class="hover:text-brandGold transition">Contact Us</button></li>
                 </ul>
             </div>
