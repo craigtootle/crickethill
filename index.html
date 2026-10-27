@@ -172,6 +172,62 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Meet Anna -->
+            <section class="pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-equine-900">Meet Anna</h2>
+                    <div class="w-20 h-1 bg-brandGold mx-auto rounded"></div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-4">
+                        <!-- PLACEHOLDER: replace this paragraph with Anna's biography -->
+                        <p class="text-stone-600 leading-relaxed">
+                            Biography coming soon. Anna's story, background, and training philosophy will be shared here.
+                        </p>
+                    </div>
+                    <!-- Anna photo carousel: add one <div class="min-w-full h-full">...</div> per photo. Replace the placeholder block with <img src="..." alt="..." class="w-full h-full object-cover"> -->
+                    <div class="js-carousel relative overflow-hidden rounded-2xl shadow-sm border border-stone-200 bg-stone-900 aspect-[4/3]">
+                        <div class="js-track flex h-full transition-transform duration-500 ease-in-out">
+                            <div class="min-w-full h-full"><img src="anna1.JPEG" alt="Anna at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                            <div class="min-w-full h-full"><img src="anna2.JPEG" alt="Anna at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                            <div class="min-w-full h-full"><img src="anna3.JPEG" alt="Anna at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                            <div class="min-w-full h-full"><img src="anna4.jpeg" alt="Anna at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                            <div class="min-w-full h-full"><img src="anna5.jpeg" alt="Anna at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                        </div>
+                        <button class="js-prev absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10" aria-label="Previous photo">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button class="js-next absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10" aria-label="Next photo">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                        <div class="js-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- General Photo Carousel (auto-rotates every 5 seconds) -->
+            <section class="pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-8 space-y-4">
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-equine-900">Life at Cricket Hill Farm</h2>
+                    <div class="w-20 h-1 bg-brandGold mx-auto rounded"></div>
+                </div>
+                <!-- Add one <div class="min-w-full h-full">...</div> per photo. Replace the placeholder block with <img src="..." alt="..." class="w-full h-full object-cover"> -->
+                <div class="js-carousel relative overflow-hidden rounded-2xl shadow-sm border border-stone-200 bg-stone-900 aspect-[4/3] sm:aspect-[16/9]" data-autoplay="5000">
+                    <div class="js-track flex h-full transition-transform duration-500 ease-in-out">
+                        <div class="min-w-full h-full"><img src="chf%20kid1.jpeg" alt="Riders at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                        <div class="min-w-full h-full"><img src="chf%20kid2.jpeg" alt="Riders at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                        <div class="min-w-full h-full"><img src="chf%20kid3.jpeg" alt="Riders at Cricket Hill Farm" class="w-full h-full object-contain"></div>
+                    </div>
+                    <button class="js-prev absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10" aria-label="Previous photo">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button class="js-next absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-10 h-10 rounded-full flex items-center justify-center transition z-10" aria-label="Next photo">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    <div class="js-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2 z-10"></div>
+                </div>
+            </section>
         </div>
 
         <!-- ================= PAGE 2: LESSONS & TRAINING ================= -->
@@ -639,7 +695,7 @@
                                     </div>
                                     <div>
                                         <div class="font-bold text-equine-900">Visiting Hours</div>
-                                        <div>Tuesday – Sunday: 8:00 AM – 7:00 PM<br>Monday: Closed for Barn Maintenance</div>
+                                        <div>Open 7 days a week: 8:00 AM – 7:00 PM</div>
                                     </div>
                                 </div>
                             </div>
@@ -811,6 +867,46 @@
                 dot.classList.toggle('opacity-50', i !== current);
             });
         }
+
+        // Generic carousels: any .js-carousel with .js-track, .js-prev, .js-next, .js-dots; optional data-autoplay="ms"
+        document.querySelectorAll('.js-carousel').forEach(carousel => {
+            const track = carousel.querySelector('.js-track');
+            const total = track.children.length;
+            const dotsWrap = carousel.querySelector('.js-dots');
+            let current = 0;
+            let timer = null;
+
+            const dots = Array.from({ length: total }, (_, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'w-2.5 h-2.5 rounded-full bg-white cursor-pointer';
+                dot.addEventListener('click', () => { goTo(i); restart(); });
+                dotsWrap.appendChild(dot);
+                return dot;
+            });
+
+            function goTo(index) {
+                current = (index + total) % total;
+                track.style.transform = `translateX(-${current * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('opacity-100', i === current);
+                    dot.classList.toggle('opacity-50', i !== current);
+                });
+            }
+
+            const delay = parseInt(carousel.dataset.autoplay);
+            function restart() {
+                clearInterval(timer);
+                if (delay) timer = setInterval(() => goTo(current + 1), delay);
+            }
+
+            carousel.querySelector('.js-prev').addEventListener('click', () => { goTo(current - 1); restart(); });
+            carousel.querySelector('.js-next').addEventListener('click', () => { goTo(current + 1); restart(); });
+            carousel.addEventListener('mouseenter', () => clearInterval(timer));
+            carousel.addEventListener('mouseleave', restart);
+
+            goTo(0);
+            restart();
+        });
 
         function moveCarousel(horseId, direction) {
             const container = document.getElementById('carousel-' + horseId);
